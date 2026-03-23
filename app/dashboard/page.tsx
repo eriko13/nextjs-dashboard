@@ -8,6 +8,9 @@ import {
   fetchRevenue,
 } from '@/app/lib/data';
 
+// Dashboard data changes often; render on each request instead of at build time.
+export const dynamic = 'force-dynamic';
+
 export default async function Page() {
   const [revenue, latestInvoices, cardData] = await Promise.all([
     fetchRevenue(),
