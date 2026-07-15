@@ -10,8 +10,12 @@ import { Button } from '@/app/ui/button';
 import { createInvoice } from '@/app/lib/actions';
 
 export default function Form({ customers }: { customers: CustomerField[] }) {
+  async function createInvoiceAction(formData: FormData) {
+    await createInvoice(formData);
+  }
+
   return (
-    <form action={createInvoice}>
+    <form action={createInvoiceAction}>
       <div className="rounded-md bg-gray-50 p-4 md:p-6">
         {/* Customer Name */}
         <div className="mb-4">
