@@ -4,8 +4,13 @@ import { fetchInvoiceById, fetchCustomers } from '@/app/lib/data';
 import { Suspense } from 'react';
 import { notFound } from 'next/navigation';
 import postgres from 'postgres';
+import { Metadata } from 'next';
 
 const sql = postgres(process.env.POSTGRES_URL!);
+
+export const metadata: Metadata = {
+  title: 'Edit Invoice',
+};
 
 export async function generateStaticParams() {
   const invoices = await sql<{ id: string }[]>`SELECT id FROM invoices`;
