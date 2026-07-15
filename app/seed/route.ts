@@ -1,5 +1,6 @@
 import bcrypt from 'bcrypt';
 import postgres from 'postgres';
+import { connection } from 'next/server';
 import { invoices, customers, revenue, users } from '../lib/placeholder-data';
 
 const sql = postgres(process.env.POSTGRES_URL!);
@@ -102,6 +103,10 @@ async function seedRevenue() {
 }
 
 export async function GET() {
+  // Mark this route as request-dependent so it is never executed during
+  // `next build` (it mutates the database and would otherwise be treated
+  // as statically prerenderable).
+  await connection();
   try {
     const result = await sql.begin((sql) => [
       seedUsers(),
